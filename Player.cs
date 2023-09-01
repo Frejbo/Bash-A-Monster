@@ -7,15 +7,14 @@ class Player {
     Vector2 pos = new Vector2(Raylib.GetScreenWidth()/2, Raylib.GetScreenHeight()/2);
     Vector2 width = new Vector2(50, 50);
     int movementSpeed = 3;
-    public Player() {
-        MainLoop();
-    }
+    // public Player() {
+    //     MainLoop();
+    // }
 
-    void MainLoop() {
-        while (!Raylib.WindowShouldClose()) {
-            pos += InputVector() * movementSpeed;
-            Draw();
-        }
+    public void UpdatePos() {
+        // while (!Raylib.WindowShouldClose()) {
+        pos += InputVector() * movementSpeed;
+        // }
     }
 
     Vector2 InputVector() {
@@ -32,14 +31,13 @@ class Player {
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) {
             inputAxis.X++;
         }
-        inputAxis = Vector2.Normalize(inputAxis);
+        if (inputAxis.Length() != 0) {
+            inputAxis = Vector2.Normalize(inputAxis);
+        }
         return (inputAxis);
     }
-    void Draw() {
-        Raylib.BeginDrawing();
-        Raylib.ClearBackground(Color.BLACK);
+    public void Draw() {
         Raylib.DrawRectangle((int)pos.X - (int)width.X/2, (int)pos.Y - (int)width.Y/2, (int)width.X, (int)width.Y, Color.WHITE);
-        Raylib.EndDrawing();
     }
 
     // public void hej() {
